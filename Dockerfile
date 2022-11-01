@@ -15,8 +15,9 @@ RUN wget https://www.python.org/ftp/python/3.8.8/Python-3.8.8.tgz && \
     rm -rf Python-3.8.8.tgz
 
 RUN sudo apt install -y -V ca-certificates lsb-release && \
-    wget https://apache.bintray.com/arrow/$(lsb_release --id --short | tr 'A-Z' 'a-z')/apache-arrow-archive-keyring-latest-$(lsb_release --codename --short).deb && \
+    wget https://apache.jfrog.io/artifactory/arrow/$(lsb_release --id --short | tr 'A-Z' 'a-z')/apache-arrow-archive-keyring-latest-$(lsb_release --codename --short).deb && \
     sudo apt install -y -V ./apache-arrow-archive-keyring-latest-$(lsb_release --codename --short).deb && \
+    sudo sed -i 's/bintray\.com/jfrog.io\/artifactory/g' /etc/apt/sources.list.d/apache-arrow.sources && \
     sudo apt update && \
     sudo apt install -y -V libarrow-dev libarrow-glib-dev libarrow-dataset-dev libparquet-dev libparquet-glib-dev
 

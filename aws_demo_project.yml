@@ -27,7 +27,7 @@ workflow_generator:
 upgrades:
   - upgrade_name: Triple-Pane Windows
     options:
-      - option: Windows|Low-E, Triple, Non-metal, Air, L-Gain
+      - option: Windows|Triple, Low-E, Non-metal, Air, L-Gain
         costs:
           - value: 45.77
             multiplier: Window Area (ft^2)
@@ -37,13 +37,13 @@ aws:
   # The job_identifier must be unique, start with alpha, not include dashes, and limited to 10 chars
   job_identifier: ext_demo
   s3:
-    bucket: resbldg-datasets
+    bucket: 986162565119-resbldg-datasets
     prefix: testing/external_demo_project
   emr:
-    manager_instance_type: m5.xlarge
-    worker_instance_type: r5.4xlarge
+    manager_instance_type: m5.large
+    worker_instance_type: r5.large
     worker_instance_count: 1
-  region: us-west-2
+  region: us-east-1
   use_spot: true
   batch_array_size: 100
   # To receive email updates on job progress accept the request to receive emails that will be sent from Amazon
@@ -53,7 +53,7 @@ postprocessing:
   aws:
     region_name: 'us-west-2'
     s3:
-      bucket: resbldg-datasets
+      bucket: 986162565119-resbldg-datasets
       prefix: resstock-athena/external_demo
     athena:
       glue_service_role: service-role/AWSGlueServiceRole-default
