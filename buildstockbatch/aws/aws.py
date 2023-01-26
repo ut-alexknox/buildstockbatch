@@ -1719,7 +1719,7 @@ class AwsBatch(DockerBatchBase):
         )
         logger.debug(resp)
         image = self.docker_client.images.get(self.docker_image)
-        # image.tag(repo_url, tag=self.job_identifier)
+        image.tag(repo_url, tag=self.job_identifier)
         last_status = None
         for x in self.docker_client.images.push(
             repo_url, tag=self.job_identifier, stream=True
@@ -1727,6 +1727,7 @@ class AwsBatch(DockerBatchBase):
             try:
                 y = json.loads(x)
             except json.JSONDecodeError:
+                logger.debug(f"json decode error: {x}")
                 continue
             else:
                 if y.get("status") is not None and y.get("status") != last_status:
