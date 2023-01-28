@@ -1,10 +1,23 @@
-FROM nrel/openstudio:2.9.1
+FROM nrel/openstudio:3.3.0
 
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
-RUN sudo apt update && \
-    sudo apt install -y wget build-essential checkinstall libreadline-gplv2-dev libncursesw5-dev libssl-dev \
-    libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev libffi-dev zlib1g-dev
+RUN apt update \
+    && DEBIAN_FRONTEND=noninteractive apt -y install --no-install-recommends \
+        wget \ 
+        build-essential \
+        checkinstall \
+        libreadline-gplv2-dev \
+        libncursesw5-dev \
+        libssl-dev \
+        libsqlite3-dev \
+        tk-dev \
+        libgdbm-dev \
+        libc6-dev \
+        libbz2-dev \
+        libffi-dev \
+        zlib1g-dev \
+    && apt clean -y all
 
 RUN wget https://www.python.org/ftp/python/3.8.8/Python-3.8.8.tgz && \
     tar xzf Python-3.8.8.tgz && \
